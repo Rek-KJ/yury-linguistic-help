@@ -42,7 +42,5 @@ function generate_atergo () {
   //dodac tu clear sheet?
   const afrondo = SpreadsheetApp.openByUrl(url).getSheetByName('A Fronte');
   afrondo.getRange(2,1,afrondo.getLastRow()).sort(1);
-  copy_to_atergo ()
+  copy_to_atergo ();
 }
-
-generate_atergo ()

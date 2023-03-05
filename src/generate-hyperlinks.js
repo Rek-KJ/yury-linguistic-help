@@ -1,4 +1,4 @@
-const url = 'https://docs.google.com/spreadsheets/d/1enQL0xIPzRCOuRvc9aB-8KUOgookyz4rqzcQX9jzNyU/edit#gid=273599930';
+//const url = 'https://docs.google.com/spreadsheets/d/1NAhJflgwX2BGhJG39Wg9vOhwB_85kaJPt5pWzHY5bmA/edit#gid=1193677007';
 
 // f.generating links to a given cell
 function getLink(range,sheetName) {
@@ -10,27 +10,40 @@ function getLink(range,sheetName) {
 
 // f. finding in the 21st column a cell with a given word
 function find (word,inSheet) {
-  const sheet = SpreadsheetApp.openByUrl(url).getSheetByName(inSheet);
-  const data = sheet.getDataRange().getValues();
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(inSheet); //openByUrl(url).getSheetByName(inSheet);
+  const data = sheet.getRange("A:A").getValues();
   for(let i = 0; i<data.length;i++){
     if(data[i] == word){ 
       var destiny = sheet.getRange(i+1,1);
-      // Logger.log(destiny);
+      //Logger.log(destiny);
     }
   }
   return destiny;
 }
 
+//f. avoiding problems with "" in string
+function getRidOfChar34(msgIn) {
+  let msgOut='';
+  for(let i=0;i<=msgIn.length-1;i++) {
+    if (msgIn[i]=='"') {
+      msgOut=msgOut+'"; CHAR(34); "';
+    }
+    else {
+      msgOut+=msgIn[i];
+    }
+  }
+  return 'CONCATENATE("'+msgOut+'")';
+}
+
 // f. generating links for each cell in the first column
 function links_in_ss (inSheet,toSheet) {
   const sheet = SpreadsheetApp.openByUrl(url).getSheetByName(inSheet);
-  Logger.log(inSheet);
   const data = sheet.getDataRange().getValues();
   for(let k = 1; k<data.length;k++) {
     const range = find (data[k][0],toSheet);
     const link = getLink(range, toSheet);
-    SpreadsheetApp.openByUrl(url).getSheetByName(inSheet).getRange(k+1,1).setValue('=hyperlink("'+link+'";"'+SpreadsheetApp.openByUrl(url).getSheetByName(inSheet).getRange(k+1,1).getValue()+'")');
+    // Logger.log(link);
+    let cellContent = sheet.getRange(k+1,1).getValue();
+    sheet.getRange(k+1,1).setValue('=hyperlink("'+link+'";'+getRidOfChar34(cellContent)+')');
   }
 }
-
-links_in_ss ('A Fronte','A Tergo');
