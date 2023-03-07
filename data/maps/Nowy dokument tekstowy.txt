@@ -1,0 +1,13 @@
+ADDRESS / PLACE	LAT	LON
+ Ardatov (Republic of Mordovia) \ Ардатов (Республика Мордовия)	54.7594181	46.2679304
+ Arkhangelsk (Arkhangelsk Oblast) \ Архангельск (Архангельская область)	64.543022	40.537121
+ Arkhangelsk (Arkhangelsk Oblast) \ Каргополь (Архангельская область)	64.5401	40.5433
+ Arkhangelsk (Arkhangelsk Oblast) \ Северодвинск (Архангельская область)	64.5401	40.5433
+ Arkhangelsk (Arkhangelsk Oblast) \ Шенкурск (Архангельская область)	64.5401	40.5433
+ Astrakhan (Astrakhan Oblast) \ Астрахань (Астраханская область)	46.3498308	48.0326203
+ Barnaul (Altai Krai) \ Барнаул (Алтайский край)	53.3475493	83.7788448
+ Belgorod (Belgorod Oblast) \ Белгород (Белгородская область)	50.5955595	36.5873394
+ Staryi Oskol (Belgorod Oblast) \ Старый Оскол (Белгородская область)	51.2219831	37.9294599
+ Belogorsk (Amur Oblast) \ Белогорск (Амурская область)	50.921326	128.47287
+ Blagoveshchensk (Amur Oblast) \ Благовещенск (Амурская область)	50.290527	127.527161
+ Bryansk (Bryansk Oblast) \ Брянск (Брянская область)	53.0447094	35.2787652
