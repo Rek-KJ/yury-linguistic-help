@@ -1,5 +1,3 @@
-//const url = 'https://docs.google.com/spreadsheets/d/1NAhJflgwX2BGhJG39Wg9vOhwB_85kaJPt5pWzHY5bmA/edit#gid=1193677007';
-
 // f.generating links to a given cell
 function getLink(range,sheetName) {
   const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
@@ -8,14 +6,13 @@ function getLink(range,sheetName) {
   return link;
 }
 
-// f. finding in the 21st column a cell with a given word
+// f. returning a cell location of a given word in the 1st column
 function find (word,inSheet) {
   const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(inSheet); //openByUrl(url).getSheetByName(inSheet);
   const data = sheet.getRange("A:A").getValues();
   for(let i = 0; i<data.length;i++){
     if(data[i] == word){ 
       var destiny = sheet.getRange(i+1,1);
-      //Logger.log(destiny);
     }
   }
   return destiny;
@@ -39,10 +36,14 @@ function getRidOfChar34(msgIn) {
 function links_in_ss (inSheet,toSheet) {
   const sheet = SpreadsheetApp.openByUrl(url).getSheetByName(inSheet);
   const data = sheet.getDataRange().getValues();
+  var time=0.0;
+  var time_estimation=0.0;
   for(let k = 1; k<data.length;k++) {
     const range = find (data[k][0],toSheet);
     const link = getLink(range, toSheet);
-    // Logger.log(link);
+    time_estimation= (new Date().getMilliseconds()-time) > 0 ? ((new Date().getMilliseconds()-time)/60000)*(50-i) : ((new Date().getMilliseconds()+1000-time)/60000)*(50-i);
+    time=new Date().getMilliseconds();
+    Logger.log(k+ ", "+link+ ", "+time_estimation+ " min");
     let cellContent = sheet.getRange(k+1,1).getValue();
     sheet.getRange(k+1,1).setValue('=hyperlink("'+link+'";'+getRidOfChar34(cellContent)+')');
   }

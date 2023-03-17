@@ -1,5 +1,3 @@
-const url = 'https://docs.google.com/spreadsheets/d/1enQL0xIPzRCOuRvc9aB-8KUOgookyz4rqzcQX9jzNyU/edit#gid=273599930';
-
 // function copying the content and length of the 1st col starting with 2nd row from a given sheet
 function getColumn(sheetName) {
   const sheet = SpreadsheetApp.openByUrl(url).getSheetByName(sheetName);
@@ -17,17 +15,22 @@ function reverse(msg) {
   return msg2
 }
 
-// f. reversing a column of a sheet
+// f. reversing words in a column of a sheet
 function reverseColumn (sheetName, columnNumber, columnLength) {
   const ss = SpreadsheetApp.openByUrl(url);
+  var time=0.0;
+  var time_estimation=0.0;
   for(let j = 2; j <= columnLength; j++) {
     const cell = ss.getSheetByName(sheetName).getRange(j,columnNumber);
     const newcell = reverse(cell.getValue());
+    time_estimation= (new Date().getMilliseconds()-time) > 0 ? ((new Date().getMilliseconds()-time)/60000)*(50-i) : ((new Date().getMilliseconds()+1000-time)/60000)*(50-i);
+    time=new Date().getMilliseconds();
+    Logger.log(j+ ", "+newcell+ ", "+ time_estimation+ " min");
     cell.setValue(newcell);
   }
 }
 
-// f. copying content of a fronte to a tergo, and sorting it
+// f. copying content from a fronte to a tergo, and sorting it
 function copy_to_atergo () {
   const column= getColumn('A Fronte');
   const atergo = SpreadsheetApp.openByUrl(url).getSheetByName('A Tergo');
@@ -37,10 +40,10 @@ function copy_to_atergo () {
   reverseColumn('A Tergo',1,column[1]);
 }
 
-// f. sorting atergo and then generating a tergo
+// f. sorting afronte and then activating copy_to_atergo
 function generate_atergo () {
   //dodac tu clear sheet?
-  const afrondo = SpreadsheetApp.openByUrl(url).getSheetByName('A Fronte');
-  afrondo.getRange(2,1,afrondo.getLastRow()).sort(1);
+  const afronte = SpreadsheetApp.openByUrl(url).getSheetByName('A Fronte');
+  afronte.getRange(2,1,afrondo.getLastRow()).sort(1);
   copy_to_atergo ();
 }

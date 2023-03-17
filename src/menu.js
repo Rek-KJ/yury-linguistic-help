@@ -1,3 +1,5 @@
+const url = 'https://docs.google.com/spreadsheets/d/1enQL0xIPzRCOuRvc9aB-8KUOgookyz4rqzcQX9jzNyU/edit#gid=273599930';
+
 //f. updating the dictionary and generating the hyperlinks
 function refresh() {
   const ss = SpreadsheetApp.openByUrl(url);
