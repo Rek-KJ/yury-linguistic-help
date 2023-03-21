@@ -23,9 +23,9 @@ function reverseColumn (sheetName, columnNumber, columnLength) {
   for(let j = 2; j <= columnLength; j++) {
     const cell = ss.getSheetByName(sheetName).getRange(j,columnNumber);
     const newcell = reverse(cell.getValue());
-    time_estimation= (new Date().getMilliseconds()-time) > 0 ? ((new Date().getMilliseconds()-time)/60000)*(50-i) : ((new Date().getMilliseconds()+1000-time)/60000)*(50-i);
-    time=new Date().getMilliseconds();
-    Logger.log(j+ ", "+newcell+ ", "+ time_estimation+ " min");
+    //time_estimation= (new Date().getMilliseconds()-time) > 0 ? ((new Date().getMilliseconds()-time)/60000)*(columnLength-j) : ((new Date().getMilliseconds()+1000-time)/60000)*(columnLength-j);
+    //time=new Date().getMilliseconds();
+    //Logger.log(j+ ", "+newcell+ ", "+ time_estimation+ " min");
     cell.setValue(newcell);
   }
 }
@@ -40,10 +40,10 @@ function copy_to_atergo () {
   reverseColumn('A Tergo',1,column[1]);
 }
 
-// f. sorting afronte and then activating copy_to_atergo
+// f. sorting afrondo and then activating copy_to_atergo
 function generate_atergo () {
   //dodac tu clear sheet?
-  const afronte = SpreadsheetApp.openByUrl(url).getSheetByName('A Fronte');
-  afronte.getRange(2,1,afrondo.getLastRow()).sort(1);
+  const afrondo = SpreadsheetApp.openByUrl(url).getSheetByName('A Fronte');
+  afrondo.getRange(2,1,afrondo.getLastRow()).sort(1);
   copy_to_atergo ();
 }
