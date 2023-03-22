@@ -3,11 +3,8 @@ const word_to_range_atergo = new Map();
 //f. initiating a map of words in a sheet and their location (cell)
 function init_map_atergo(sheet){
   const data1 = sheet.getRange("A:A").getValues();
-  //Logger.log(data1);
   word_to_range_atergo.set("abc",2);
-  //Logger.log(word_to_range_atergo);
   for(let i = 0; i < data1.length; i++) {
-    //console.log([...mapObject.entries()]);
     word_to_range_atergo.set(String(data1[i][0]),String(sheet.getRange(i+1,1).getA1Notation()));
     //Logger.log([...word_to_range_atergo.entries()]);
   }
@@ -15,7 +12,6 @@ function init_map_atergo(sheet){
 
 // f.generating links to a given cell
 function getLink(range,sheetName) {
-  //Logger.log(range);
   const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
   const sheet = spreadsheet.getSheetByName(sheetName);
   var link = "https://docs.google.com/spreadsheets/d/"+spreadsheet.getId()+"/edit#gid="+sheet.getSheetId()+"&range="+range;
@@ -54,8 +50,8 @@ function links_in_ss (inSheet,toSheet) {
   const data = sheet.getDataRange().getValues();
   const to_sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(toSheet);
   init_map_atergo(to_sheet);
-  var time=0.0;
-  var time_estimation=0.0;
+  //var time=0.0;
+  //var time_estimation=0.0;
   for(let k = 1; k<data.length;k++) {
     const range = word_to_range_atergo.get(data[k][0]);
     //Logger.log(range+ ", "+k);

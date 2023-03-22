@@ -6,7 +6,7 @@ function onEdit(e) {
   if (e.range.columnStart == 2 && e.range.rowStart != 1 && r.getSheet().getName() == 'A Fronte') {
     if (cellValue == true) {
       var search=find(r.offset(0,-1).getValue(),'metadata').getA1Notation();
-      var img = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("metadata").getRange(search).offset(0,5,1,1).getValue();
+      var img = String(SpreadsheetApp.getActiveSpreadsheet().getSheetByName("metadata").getRange(search).offset(0,5,1,1).getValue());
       r.offset(0,6,1,1).setValue('=IMAGE("'+img+'";4;640;976)');
       r.offset(0,7).setValue(".");
       r.offset(0,7).setFontColor('white');
@@ -18,7 +18,6 @@ function onEdit(e) {
       r.offset(0,4,1,2).setValues(r.offset(0,3,1,2).getValues());
       year = r.offset(0,2,1,1).getValue();
       year = year.slice(year.length - 5, year.length - 1);
-      r.offset(0,3,1,1).setValue(year);
       catalogue_of_timelines ();
       r.offset(0,3,1,1).setValue('=IMAGE("'+timelineMap.get(year)+'")');
     }
