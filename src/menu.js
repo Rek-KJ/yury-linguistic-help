@@ -49,13 +49,11 @@ function catalogue_of_maps () {
 }
 
 function links_to_maps () {
-  //var time=0.0;
-  //var time_estimation=0.0;
+  var time=0.0;
+  var time_estimation=0.0;
+
   catalogue_of_maps ();
-  for(let i = 1; i < metadata.getLastRow(); i++) {
-    metadata.getRange(i,6).setValue(cityMap.get(metadata.getRange(i,5).getValue()));
-    //time_estimation= (new Date().getMilliseconds()-time) > 0 ? ((new Date().getMilliseconds()-time)/60000)*(metadata.getLastRow()-i) : ((new Date().getMilliseconds()+1000-time)/60000)*(metadata.getLastRow()-i);
-    //time=new Date().getMilliseconds();
-    //Logger.log(i+ ", "+ time_estimation+ " min");
-  }
+  Logger.log("Creating hyperlinks in metadata")
+  var metadata_map_links = metadata.getRange(1,5,metadata.getLastRow()).getValues().map(row => [cityMap.get(row[0])])
+  metadata.getRange(1,6,metadata.getLastRow()).setValues(metadata_map_links);
 } 
