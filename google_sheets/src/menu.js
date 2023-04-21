@@ -3,7 +3,7 @@ const url = 'https://docs.google.com/spreadsheets/d/1enQL0xIPzRCOuRvc9aB-8KUOgoo
 const ss = SpreadsheetApp.openByUrl(url);
 
 //f. updating the dictionary and generating the hyperlinks
-function refresh() {
+async function refresh() {
   links_to_maps ();
   const metadataAA = ss.getSheetByName("metadata").getRange(2,1,ss.getSheetByName("metadata").getLastRow(),1).getValues();
   ss.getSheetByName("A Fronte").getRange(2,1,ss.getSheetByName("A Fronte").getLastRow(),7).clear();
@@ -11,9 +11,15 @@ function refresh() {
   ss.getSheetByName("A Fronte").getRange(2,1,ss.getSheetByName("metadata").getLastRow(),1).setValues(metadataAA);
   ss.getSheetByName("A Fronte").getRange(2,2,ss.getSheetByName("A Fronte").getLastRow()-1,1).insertCheckboxes();
   ss.getSheetByName("A Tergo").getRange(2,1,ss.getSheetByName("A Tergo").getLastRow(),1).clear();
-  generate_atergo ();
-  links_in_ss ('A Fronte','A Tergo');
-  links_in_ss ('A Tergo','A Fronte');
+  // Logger.log("A");
+  // const link_generation = async () => {
+    Logger.log("Gen atergo");
+    await generate_atergo();
+    Logger.log("Afronde -> A tergo");
+    await links_in_ss ('A Fronte','A Tergo');
+    Logger.log("A tergo -> A fronde");
+    await links_in_ss ('A Tergo','A Fronte');
+  // }
 }
 
 //funtction adding new words from Add new words sheet
@@ -57,3 +63,4 @@ function links_to_maps () {
   var metadata_map_links = metadata.getRange(1,5,metadata.getLastRow()).getValues().map(row => [cityMap.get(row[0])])
   metadata.getRange(1,6,metadata.getLastRow()).setValues(metadata_map_links);
 } 
+

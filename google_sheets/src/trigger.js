@@ -1,3 +1,4 @@
+
 //f. generating an autorun of generate_atergo everyday at 3am
 function trigger() {
   ScriptApp.newTrigger('generate_atergo')

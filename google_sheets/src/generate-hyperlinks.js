@@ -13,6 +13,7 @@ const word_to_range_atergo = new Map();
  *
  */
 const getA1Notation = (row, column) => {
+  word_to_range_atergo = new Map();
   const a1Notation = [`${row + 1}`];
   const totalAlphabets = 'Z'.charCodeAt() - 'A'.charCodeAt() + 1;
   let block = column;
@@ -80,16 +81,15 @@ function links_in_ss (inSheet,toSheet) {
   const sheet_id = to_sheet.getSheetId();
   init_map_atergo(to_sheet);
 
-  var time=0.0;
-  var time_estimation=0.0;
 
-  var links = data.map(row => {
+  var links = data.slice(1).map(row => {
     return getLink(word_to_range_atergo.get(row[0]),main_id,sheet_id)
     });
-  var cell_contents = sheet.getRange(2,1,data.length).getValues();
+  var cell_contents = sheet.getRange(2,1,data.length-1).getValues();
 
   var hyperlink_commands = cell_contents.map((cellContent, i) => {
     return ['=hyperlink("'+links[i]+'";'+getRidOfChar34(cellContent[0])+')']
   })
-  sheet.getRange(2,1,data.length).setValues(hyperlink_commands);
+  sheet.getRange(2,1,data.length-1).setValues(hyperlink_commands);
+  return;
 }
